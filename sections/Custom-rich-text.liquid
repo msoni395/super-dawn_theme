@@ -1,0 +1,81 @@
+<style>
+  .design1::before,
+  .design1::after{
+     
+     content: "";
+    display: inline-block;
+    width: 30px;
+    height: 2px;
+    background: #222;
+    
+  }
+  .innerContainerrr{
+    text-align:center;
+  }
+  .innerContainerrr h3{ 
+ font-size: calc(var(--font-heading-scale) * 4rem);
+  }
+</style>
+
+
+<div class="outerContainerrr">
+  <div class="innerContainerrr page-width">
+   {% liquid 
+    assign headingStyle = section.settings.title-style
+   %}
+    <h3 class="{{ headingStyle }}">{{ section.settings.heading }}</h3>
+    <p>{{ section.settings.sub_heading }}</p>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Custom Rich text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading ",
+      "id": "heading"
+    },
+    {
+      "type": "select",
+      "label": "Heading Style",
+      "id": "title-style",
+      "options": [
+        {
+          "label": "Design 1",
+          "value": "design1"
+        },
+        {
+          "label": "Design 2",
+          "value": "design2"
+        },
+        {
+          "label": "Design 3",
+          "value": "design3"
+        },
+        {
+          "label": "Design 4",
+          "value": "design4"
+        },
+        {
+          "label": "Design 5",
+          "value": "design5"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "label": "Sub heading ",
+      "id": "sub_heading"
+    }
+  ], 
+  "presets": [
+    {
+      "name": "Custom Rich text"
+    }
+  ]
+}
+{% endschema %} 

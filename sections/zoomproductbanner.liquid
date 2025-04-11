@@ -1,0 +1,183 @@
+<div class="outerContainer page-width">
+<div class="banner-wrapper-outer">
+<div class="banner-wrapper">
+  <div class="banner-overlay "></div>
+  <img src="{{ section.settings.prooduct.featured_image| img_url:"master" }}" alt="Banner Image">
+ {% if section.settings.btn_txt!=blank %}
+  <div class="banner-text">
+    <h2 class="product-name">{{ section.settings.prooduct.title }}</h2>
+<!--       <a href="{{ section.settings.prooduct.url}}" class="btn button"> {{ section.settings.btn_txt }}</a> -->
+     <a href="{{ section.settings.prooduct.url}}" class="btn button"> Shop Now </a>
+  </div>
+{% endif %}
+</div>
+  </div>
+  </div>
+  
+<style>
+ .banner-wrapper-outer{
+    transform: translateZ(0) scale(1);
+    transition: transform 0.5s ease-in-out;  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+ }
+.banner-wrapper-outer:hover{
+    transform: translateZ(0) scale(.9);
+ }
+  
+ .banner-wrapper {
+  position: relative;
+  overflow: hidden;
+  
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.banner-wrapper:hover .banner-overlay {
+  opacity: 1;
+}
+
+.banner-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 2s cubic-bezier(0.66,0,0.34,1);
+}
+
+.banner-wrapper:hover img {
+  transform: scale(1.1);
+}
+
+.banner-text {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #000;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.66,0,0.34,1);
+}
+.banner-text .btn{
+   color: White;
+}
+.banner-text h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding:10px;
+/*   color: rgb(var(--color-button-text));
+  background-color: rgba(var(--color-button),var(--alpha-button-background)); */
+}
+
+.banner-wrapper:hover .banner-text {
+  opacity: 1;
+}
+
+</style> 
+{% comment %} 
+<div class="banner-wrapper">
+<div class="image-sections">
+  <div class="image-section">
+    <img src="{{ section.settings.zb_image1 | img_url:"master" }}" alt="Image 1">
+    <div class="image-overlay"></div>
+  </div>
+  <div class="image-section">
+    <img src="{{ section.settings.zb_image2 | img_url:"master" }}" alt="Image 2">
+    <div class="image-overlay"></div>
+  </div>
+</div>
+  </div>
+<style>.image-sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.image-section {
+  position: relative;
+  width: 45%;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 2%;
+}
+
+@media screen and (max-width: 768px) {
+  .image-section {
+    width: 100%;
+  }
+}
+
+.image-section img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image-section:hover img {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image-section:hover .image-overlay {
+  opacity: 1;
+}
+</style>{% endcomment %}
+{% schema %}
+  {
+    "name": "Zoom Product banner",
+    "settings": [
+    
+       {
+      "type": "product",
+      "label": "Add a Product",
+      "id": "prooduct"
+    },
+    {
+      "type": "text",
+      "label": "btn-label",
+      "id": "btn_txt"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "btn-url"
+    }  
+    ],
+    "presets": [
+    {
+      "name": "Zoom Product banner"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

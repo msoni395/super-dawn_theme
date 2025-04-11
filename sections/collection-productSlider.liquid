@@ -1,0 +1,190 @@
+<style>
+  .cardd {
+  margin-bottom: 30px;
+}
+
+/* Style for the cardd image */
+.cardd-img-top {
+  width: 100%;
+  height: auto;
+  border-radius:15px;
+}
+
+/* Style for the cardd title */
+.cardd-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Style for the cardd text */
+.cardd-price, .cardd-text {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Style for the view product button */
+.btn-primary {
+    background-color: #3f4a2d;
+    border-color: #3f4a2d;
+    color: #fff;
+    padding: 6px;
+    border-radius: 6px
+}
+
+.btn-primary:hover {
+  background-color:#3f4a2d;
+  border-color: #005cbf;
+  color: #fff;
+}
+  .inner-container {
+   display: grid;
+   grid-template-columns: 40%, 60% !important;
+   
+}
+
+.coll_desc {  
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.coll_prods { 
+  background-color: #ccc;
+  padding: 20px;
+}
+ 
+@media only screen and (max-width: 767px) 
+{
+  .inner-container 
+  {
+    display: grid;
+    grid-tempalte-columns:repeat(100%);
+  }
+}
+  .coll_desc h2 {
+   text-transform: uppercase;
+  }
+
+  {% if section.settings.add_bg_col != blank %}
+     .coll_desc{
+       background-color: {{section.settings.add_bg_col}};
+     }
+  {% else %}
+  .coll_desc {  
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+  {% endif %}
+   {% if section.settings.add_prod_bg_col != blank %}
+     .coll_prods{
+       background-color: {{section.settings.add_prod_bg_col}};
+     } 
+     {% else %}
+      .coll_prods{
+       background-color: #f1ecec;
+     } 
+    {% endif %}
+</style>
+<link rel="stylesheet" type="text/css" href="{{ 'slick.css' | asset_url }}"/>
+<link rel="stylesheet" type="text/css" href="{{ 'slick-theme.css' | asset_url }}"/>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+ <script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
+ <script>
+$(document).ready(function(){
+   $('.coll_prods').slick({
+    fade: true,
+    cssEase: 'linear',
+    autoplay: true,
+    autoplaySpeed: 2000,
+   });
+});  
+</script>
+
+<div class="outer_container ">
+  <div class="inner-container  page-width">
+ <div class="coll_desc">
+    <h2>{{ section.settings.add_col }}</h2> 
+   {% if section.settings.add_col.description!= blank %}
+     <p>{{ section.settings.add_col.description }}</p>
+    <a href="{{ section.settings.add_col }}" class="btn btn-primary">{{ section.settings.add_btn }}</a>
+   {% endif %}
+</div>
+    <div class="coll_prods">
+      {% for product in section.settings.add_col.products %}
+<div class="cardd"> 
+  <img class="cardd-img-top" src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+  <div class="cardd-body">
+    <h5 class="cardd-title">{{ product.title }}</h5> 
+     <p  class="cardd-price">{{ product.price | money }}</p>
+   
+    {% if section.settings.show_product_details != blank  %}
+      <p class="cardd-desc">{{ product.description }}</p> 
+      {% endif %}
+    <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
+  </div>
+</div>
+     {% endfor %}
+    </div>  
+  </div>
+</div>
+ 
+{% schema %}
+{
+  "name": "CollectionProd Slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "label": "Add collection ",
+      "id": "add_col"
+    },
+    {
+      "type": "color",
+      "label": "Add Background Color",
+      "id": "add_bg_col"
+    },
+     {
+      "type": "color",
+      "label": "Add Background Color for products",
+      "id": "add_prod_bg_col"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Product Price",
+      "id": "show_product_price",
+      "default": false
+    },
+     {
+      "type": "checkbox",
+      "label": "Show Product Details",
+      "id": "show_product_details",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "label": "Choose Font",
+      "id": "choose_font",
+      "default": "serif"
+    },
+    {
+      "type": "text",
+      "label": "Add Button ",
+      "id": "add_btn",
+      "info": "Button will display if there is any description will be avaialable"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "CollectionProd Slider"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

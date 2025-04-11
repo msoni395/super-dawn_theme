@@ -1,0 +1,192 @@
+<style>
+  .mainwhychoose{
+    display:flex;
+  }
+  .left{    text-align: center;
+    width:56%; 
+    margin: 0 auto;
+  }
+  .right{    text-align: center;
+    width:56%; 
+    margin: 0 auto;
+  }
+  .centerr { display:flex;
+    justify-content:center;  
+    margin: 0 auto;
+    width: 56%;
+  }
+  .mainwhychoose {
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #b3e3e3;
+    /* color: beige; */
+    text-align: center;
+}
+  .whyChooseContainerInner{
+    text-align:center;
+  }
+@media only screen and (max-width: 767px) {
+    .mainwhychoose {
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #b3e3e3;
+    /* color: beige; */
+    text-align: center;   
+    flex-direction: column;
+}
+}
+  
+
+</style>
+
+<div class="whyChooseContainerOuter">
+<div class="whyChooseContainerInner">
+  <h2>{{ section.settings.heading_main }}</h2>
+   <div class="mainwhychoose">
+
+   
+{% for block in section.blocks %}
+  
+  {% if block.type == "left" %}
+    <div class="left">
+      <div class="left1">
+        <img src="{{ block.settings.img | img_url: '150x150' }}" />
+        <h2>{{ block.settings.heading }}</h2>
+        <p>{{ block.settings.description }}</p>
+      </div>
+      {% if block.settings.img2!=blank %}
+      <div class="left2">
+        <img src="{{ block.settings.img2 | img_url: '150x150' }}" />
+        <h2>{{ block.settings.heading2 }}</h2>
+        <p>{{ block.settings.description2 }}</p>
+      </div> {% endif %}
+    </div>{% endif %}{% endfor %}
+      <div class="centerr"> 
+        <img src="{{ section.settings.centerImg |img_url:'250x250' }}"/>
+      </div>
+ 
+     {% for block in section.blocks %}{% if block.type == "right" %}
+    <div class="right">
+      <div class="right1">
+        <img src="{{ block.settings.imgg1 | img_url: '150x150' }}" />
+        <h2>{{ block.settings.headingg1 }}</h2>
+        <p>{{ block.settings.descriptiong1 }}</p>
+      </div>{% if block.settings.imgg2!=blank %}
+      <div class="right2">
+        <img src="{{ block.settings.imgg2 | img_url: '150x150' }}" />
+        <h2>{{ block.settings.headingg2 }}</h2>
+        <p>{{ block.settings.descriptiong2 }}</p>
+      </div>{% endif %}
+    </div>
+  {% endif %}
+{% endfor %}
+ </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "whychoose",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading Main",
+      "id": "heading_main"
+    },
+    {
+      "type": "image_picker",
+      "label": "Add an Image For center",
+      "id": "centerImg"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left",
+      "limit": 1,
+      "name": "left",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "img",
+          "id": "img"
+        },
+        {
+          "type": "text",
+          "label": "heading",
+          "id": "heading"
+        }, {
+      "type": "textarea",
+      "label": "Description",
+      "id": "description"
+    },
+        {
+          "type": "image_picker",
+          "label": "img2",
+          "id": "img2"
+        },
+        {
+          "type": "text",
+          "label": "heading2",
+          "id": "heading2"
+        },
+         {
+      "type": "textarea",
+      "label": "Description",
+      "id": "description2"
+    }
+      ]
+    },
+    {
+      "type": "right",
+      "limit": 1,
+      "name": "right",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "imgg1",
+          "id": "imgg1"
+        },
+        {
+          "type": "text",
+          "label": "headingg1",
+          "id": "headingg1"
+        }, {
+      "type": "textarea",
+      "label": "Description",
+      "id": "descriptiong1"
+    },
+        {
+          "type": "image_picker",
+          "label": "imgg2",
+          "id": "imgg2"
+        },
+        {
+          "type": "text",
+          "label": "headingg2",
+          "id": "headingg2"
+        }, {
+      "type": "textarea",
+      "label": "Description",
+      "id": "descriptiong2"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "whychoose"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

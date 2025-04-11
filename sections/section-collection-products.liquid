@@ -1,0 +1,151 @@
+<div class="container-outer page-width">
+    <div class="container-inner">
+  {%- for block in section.blocks -%}
+     <div>
+      <div class="tabs"> 
+           <button class="tablink" onclick="openTab(event, 'block-id-{{ block.settings.collection }}')"> {{ block.settings.collection }}</button>
+      </div>{% endfor %}
+     </div>
+      <div>
+    {%- for block in section.blocks -%}
+         <div id="block-id-{{ block.settings.collection }}" class="tabcontent">
+           <h2>{{ block.settings.collection }}Content</h2>
+           <p>This is the content of {{ block.settings.collection }}.</p>
+         </div>{% endfor %}
+      </div>
+  
+</div> 
+    </div>
+</div>
+
+
+<style>
+.container-inner {
+display: grid;
+grid-template-columns: repeat(2, 1fr); 
+grid-column-gap: 15px;
+grid-row-gap: 0px;
+}
+ 
+  /* Hide all tab content by default */
+.tabcontent {
+  display: none;
+}
+
+/* Style the tab buttons */
+.tablink {
+  background-color: #eee;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Style the active tab button */
+.tablink.active {
+  background-color: #ccc;
+}
+
+/* Show the corresponding tab content when a button is clicked */
+.tablink:focus {
+  outline: none;
+}
+.tabcontent:focus {
+  outline: none;
+}
+.tablink:hover {
+  background-color: #ddd;
+}
+.tablink:focus .tabcontent {
+  display: block;
+}
+.tablink:hover {
+  background-color: #ddd;
+}.horizontal-tab a:hover {
+  background-color: #ddd;
+}
+</style>
+
+<script> 
+ function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+{% schema %}
+{
+  "name": "Latest Collection List ",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "label": "Color Scheme",
+      "id": "color_scheme",
+      "options": [
+        {
+          "label": "Light1 ",
+          "value": "light"
+        },
+        {
+          "label": "Dark",
+          "value": "dark"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "SubHeading ",
+      "id": "subheading"
+    },
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading"
+    },
+    {
+      "type": "header",
+      "content": "Product Card"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_list",
+      "name": "Collection List",
+      "settings": [
+        {
+          "type": "collection",
+          "label": "collection",
+          "id": "collection"
+        },
+        {
+          "type": "product",
+          "label": "Choose Product",
+          "id": "choose_product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Latest Collection List "
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

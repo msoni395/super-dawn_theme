@@ -1,0 +1,271 @@
+<style>
+  .btnn{
+    background-color: #3f4a2d;
+    border-color: #3f4a2d;
+    color: #fff;
+    padding: 15px;
+    border-radius: 6px
+  }
+
+  @media only screen and (min-width:767px){
+    .bannerr-text h2 {
+      font-size:60px;
+    }
+  }
+.inner-containerr{
+  display:grid;
+  grid-template-columns:60% 40%;
+}
+@media only screen and (min-width:767px){
+   
+  
+  .outer-containerr
+    { 
+     background-image: url("{{ section.settings.add_bgImg | img_url:'master' }}");
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 500px;
+    }
+
+  .example3 {
+ height:500px;	
+ overflow: hidden;
+ position: relative;
+}
+.example3 h2{
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateY(-100%);
+ -webkit-transform:translateY(-100%);	
+ transform:translateY(-100%);
+ /* Apply animation to this element */	
+ -moz-animation: example3 15s linear infinite;
+ -webkit-animation: example3 15s linear infinite;
+ animation: example3 15s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example3 {
+ 0%   { -moz-transform: translateY(-100%); }
+ 100% { -moz-transform: translateY(100%); }
+} 
+@-webkit-keyframes example3 {
+ 0%   { -webkit-transform: translateY(-100%); }
+ 100% { -webkit-transform: translateY(100%); }
+}
+@keyframes example3 {
+ 0%   { 
+ -moz-transform: translateY(-100%); /* Firefox bug fix */
+ -webkit-transform: translateY(-100%); /* Firefox bug fix */
+ transform: translateY(-100%); 		
+ }
+ 100% { 
+ -moz-transform: translateY(100%); /* Firefox bug fix */
+ -webkit-transform: translateY(100%); /* Firefox bug fix */
+ transform: translateY(100%); 
+ }
+}
+}
+/*  FOR MOBILE  */
+
+   @media only screen and (max-width: 508px) and (min-width: 320px){
+     .example3 h2 img {
+    height: 80px;
+    margin-top: 40px;
+    /* padding-right: 4px; */
+}
+   }
+  @media only screen and (max-width:766px){
+    .bannerr-text h2 {
+      font-size:45px;
+    }
+    .inner-containerr{
+      display:grid;
+      grid-template-columns:100%;
+      }
+    .example3 h2 br {
+      display:none;
+    }
+    .outer-containerr
+    { 
+     background-image: url("{{ section.settings.add_mob_bgImg | img_url:'master' }}");
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 500px;
+    }
+  
+  .example3 {
+ height:500px;	
+ overflow: hidden;
+ position: relative;
+}
+    .example3 h2 img{
+  margin-top:15px;     
+    }
+.example3 h2{
+  
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(-100%);
+ -webkit-transform:translateX(-100%);	
+ transform:translateX(-100%);
+ /* Apply animation to this element */	
+ -moz-animation: example3 15s linear infinite;
+ -webkit-animation: example3 15s linear infinite;
+ animation: example3 15s linear infinite;
+}
+
+@-moz-keyframes example3 {
+ 0%  { -moz-transform: translateX(-100%); 
+   }
+ 100% {
+    -moz-transform: translateX(100%); 
+   }
+} 
+@-webkit-keyframes example3 {
+ 0%   { -webkit-transform: translateX(-100%); }
+ 100% { -webkit-transform: translateX(100%); }
+}
+@keyframes example3 {
+ 0%   { 
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%); 		
+ }
+ 100% { 
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%); 
+ }
+}
+  }
+
+   
+ 
+
+.example3 {
+ height:500px;	
+ overflow: hidden;
+ position: relative;
+}
+ 
+</style>
+
+<div class="Super-continer">
+  <div class="outer-containerr">
+     <div class="inner-containerr page-width">
+       <div class="bannerr-text">
+         <h2>{{ section.settings.heading }}</h2>
+          <p> {{ section.settings.subheading }}</p>
+       {% if section.settings.button_url!= blank  %}    
+         <a href="{{ section.settings.button_url}}" class="btnn">{{ section.settings.button_text}}</a>
+       {% endif %}
+       </div>
+       <div class="bannerr-marquee">
+             <div class="example3">
+ <h2>
+   {% if section.settings.marquee_image1!=blank %}
+   <img decoding="async"   src="{{ section.settings.marquee_image1 |img_url:'150X150' }} " class="attachment-large size-large wp-image-686 lazyloaded" alt=""  >
+   {% endif %} <br/>
+    {% if section.settings.marquee_image2!=blank %}
+   <img decoding="async"   src="{{ section.settings.marquee_image2 |img_url:'150X150' }} " class="attachment-large size-large wp-image-686 lazyloaded" alt=""  >
+   {% endif %} <br/>
+    {% if section.settings.marquee_image3!=blank %}
+   <img decoding="async" src="{{ section.settings.marquee_image3 |img_url:'150X150' }} " class="attachment-large size-large wp-image-686 lazyloaded" alt=""  >
+   {% endif %}
+</h2>
+ </div>
+                  
+       </div>
+     </div>
+  </div>
+</div> 
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading"
+    },
+    {
+      "type": "text",
+      "label": "subheading  ",
+      "id": "subheading"
+    },
+    {
+      "type": "header",
+      "content": "Add background image for the section "
+    },
+    {
+      "type": "image_picker",
+      "label": "Add Background Image ",
+      "id": "add_bgImg"
+    },
+    {
+      "type": "image_picker",
+      "label": "Add MobileBackground Image ",
+      "id": "add_mob_bgImg"
+    },
+    {
+      "type": "range",
+      "label": "Font Size",
+      "id": "font_size",
+      "default": 15,
+      "min": 15,
+      "max": 30,
+      "step": 1,
+      "unit": "30"
+    },
+    {
+      "type": "text",
+      "label": "Button Text",
+      "id": "button_text"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "button_url"
+    },
+    {
+          "type": "image_picker",
+          "label": "Marquee Image1",
+          "id": "marquee_image1"
+   },
+    {
+          "type": "image_picker",
+          "label": "Marquee Image2",
+          "id": "marquee_image2"
+   },
+    {
+          "type": "image_picker",
+          "label": "Marquee Image 3",
+          "id": "marquee_image3"
+   }
+  ], 
+  "presets": [
+    {
+      "name": "Marquee "
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

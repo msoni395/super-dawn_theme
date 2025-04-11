@@ -1,0 +1,171 @@
+{% schema %}
+{
+  "name": "Latest SideImage",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading",
+      "placeholder": "Enter Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "double_image_block",
+      "name": "Double Image Block",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "picMain",
+          "id": "picmain"
+        },
+        {
+          "type": "text",
+          "label": "small title",
+          "id": "small_title"
+        },
+        {
+          "type": "text",
+          "label": "Content Title",
+          "id": "content_title"
+        },
+        {
+          "type": "textarea",
+          "label": "Paragraph",
+          "id": "parag"
+        },
+        {
+          "type": "image_picker",
+          "label": "Side Image",
+          "id": "side_image"
+        },
+        {
+          "type": "text",
+          "label": "side Image Title",
+          "id": "side_image_title"
+        },
+        {
+          "type": "text",
+          "label": "side Image Text",
+          "id": "side_image_text"
+        },
+        {
+          "type": "url",
+          "label": "Button Side Image",
+          "id": "button_side_image"
+        },
+        {
+          "type": "url",
+          "label": "Button Main",
+          "id": "button_main"
+        },
+        {
+          "type": "checkbox",
+          "label": "Long image first",
+          "id": "long_image_first",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Latest Side Image"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="custom-section">
+  <div class="container">
+    {% if section.settings.heading != blank %}
+      <h2>{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% for block in section.blocks %}
+      <div class="block-wrapper">
+        {% if block.settings.long_image_first %}
+          <div class="side-image-wrapper">
+            <img src="{{ block.settings.side_image | img_url: 'medium' }}" alt="{{ block.settings.side_image_title }}" class="side-image">
+            <div class="side-image-content">
+              <h4>{{ block.settings.side_image_title }}</h4>
+              <p>{{ block.settings.side_image_text }}</p>
+              <a href="{{ block.settings.button_side_image }}" class="btn">Learn More</a>
+            </div>
+          </div>
+          <div class="main-content">
+            <img src="{{ block.settings.picmain | img_url: 'large' }}" alt="{{ block.settings.content_title }}">
+            <h3>{{ block.settings.content_title }}</h3>
+            <p>{{ block.settings.parag }}</p>
+            <a href="{{ block.settings.button_main }}" class="btn">Read More</a>
+          </div>
+        {% else %}
+          <div class="main-content">
+            <img src="{{ block.settings.picmain | img_url: 'large' }}" alt="{{ block.settings.content_title }}">
+            <h3>{{ block.settings.content_title }}</h3>
+            <p>{{ block.settings.parag }}</p>
+            <a href="{{ block.settings.button_main }}" class="btn">Read More</a>
+          </div>
+          <div class="side-image-wrapper">
+            <img src="{{ block.settings.side_image | img_url: 'medium' }}" alt="{{ block.settings.side_image_title }}" class="side-image">
+            <div class="side-image-content">
+              <h4>{{ block.settings.side_image_title }}</h4>
+              <p>{{ block.settings.side_image_text }}</p>
+              <a href="{{ block.settings.button_side_image }}" class="btn">Learn More</a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.custom-section .block-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.custom-section .block-wrapper .main-content {
+  flex: 0 0 60%;
+  margin-right: 20px;
+}
+.custom-section .block-wrapper .side-image-wrapper {
+  flex: 0 0 40%;
+  position: relative; /* Make the container relative */
+}
+.custom-section .side-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.custom-section .side-image-content {
+  position: absolute; /* Overlay content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff; /* White text for contrast */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  text-align: center;
+}
+.custom-section .side-image-content h4,
+.custom-section .side-image-content p {
+  margin: 10px 0;
+}
+.custom-section .side-image-content .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  text-decoration: none;
+  margin-top: 10px;
+}
+{% endstylesheet %}

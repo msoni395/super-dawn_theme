@@ -1,0 +1,169 @@
+<div class="OCC">
+  <div class="innerContainer">
+    <div class="innerProductOuter page-width">
+      <div class="innerproductinner">
+        <div class="productImage"><img src="{{ section.settings.productt.featured_image | img_url: 'large' }}" alt="Banner Image"></div>
+        <div class="productDescription">
+          <h3>{{ section.settings.prod-heading }}</h3><br/>
+      
+          <p class="custProd">{{ section.settings.productt}}</p>
+          <div>
+                {% assign show_variants = false %}
+
+            {% for option in product.options %}
+                {% if option.name == 'Show Variants' %}
+                    {% for value in option.values %}
+                  {% if value == 'Yes' %}
+                    {% assign show_variants = true %}
+                  {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+          </div>
+          <div class="prod-price">
+            {% assign product =section.settings.productt %}
+            {% if product.price_varies %}
+                {%- assign price_min = product.price_min | money_with_currency  -%}
+                  {%- assign price_max = product.price_max | money_with_currency  -%}
+                  {% if price_min != price_max %}
+                    From {{ price_min }} - {{ price_max }}
+                        {% else %}
+                        {{ price_min }}
+                      {% endif %}
+                        {% else %}
+                  {%- assign compare_at_price = product.compare_at_price | money_with_currency  -%}
+                  {%- assign price = product.price |money_with_currency  -%}
+                    {% if compare_at_price > price %}
+                        <del>{{ compare_at_price }}</del> {{ price }}     {% assign compare_price = product.compare_at_price %}
+{% assign price = product.price %}
+{% if compare_price and compare_price > price %}
+  {% assign discount = compare_price | minus: price %}
+  {% assign discount_percentage = discount | times: 100 | divided_by: compare_price | round %}
+  <p>{{ discount_percentage }}% off</p>
+{% endif %}
+                    {% else %}
+                    {{ price }}
+                    {% endif %}
+                  {% endif %}
+          </div>
+          <form action="/cart/add" method="post">
+              <input type="hidden" name="id" value="{{ product.id }}" />
+              <button type="submit" class="btn">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.productDescription h3{
+  font-size: calc(var(--font-heading-scale) * 3rem);
+}
+.productDescription {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+ .innerContainer{
+   background-image:url("{{ section.settings.background-image|img_url:"master" }}");
+   padding:50px; 
+   background-size: cover;
+   background-repeat: no-repeat;
+ } 
+  .custProd{
+  font-size: calc(var(--font-heading-scale) * 2rem);
+  }
+  .innerProductOuter{
+    background-color:{{ section.settings.choose_bg_color}};
+  }
+.innerproductinner{
+   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+  .productImage img {
+    margin-top: 15px;
+    border-radius: 22px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+@media only screen and (max-width: 767px) {
+  .innerproductinner{
+   display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}.innerContainer{
+    padding:20px;
+}
+
+  .productImage img {
+    width: 98%;
+    height: 95%;
+    margin-top: 45px;
+}
+}  
+</style>
+
+{% schema %}
+{
+  "name": "Custom Home Product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Prod-Heading",
+      "id": "prod-heading"
+    },{
+      "type": "range",
+      "label": "Font size",
+      "id": "font_size",
+      "default": 25,
+      "min": 25,
+      "max": 65,
+      "step": 1,
+      "unit": "1"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background-image",
+      "id": "background-image"
+    },
+    {
+      "type": "product",
+      "label": "Add Product",
+      "id": "productt"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Variants",
+      "id": "show_variants",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "By this you want to show product variants or not "
+    },
+    {
+      "type": "color",
+      "label": "Choose BG Color",
+      "id": "choose_bg_color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Home Product"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

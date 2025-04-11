@@ -1,0 +1,222 @@
+<style>
+ 
+outer-containerrr{
+    background: linear-gradient(to bottom, #8e44ad 60%, lightgray 40%);
+     min-height: 100vh;
+     color: #fff;
+}
+.container{
+max-width: 1000px;
+padding: 20px;
+margin: auto;
+}
+  
+  .prod-content p {
+    margin: 0 auto;
+}
+  .prod-content {
+    margin: 3px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    /* align-items: baseline; */
+    flex-direction: column;
+}
+.prod-img {
+    margin: 0px;
+}
+.image-hotspot{
+   
+    margin: 50px auto 0 auto;
+    position: relative;
+}
+
+.image-hotspot img{
+    max-width: 100%;
+    box-shadow: 0 0 14px 0 rgb(0, 0, 50%);
+}
+.iicon{
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 3px solid #f3f3f3;
+    background: #8e44ad;
+    cursor: pointer;
+}
+.iicon::after{
+    position:absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, 50%) scale(1,1);
+     pointer-events: none;
+     content: "";
+     display: block;
+     width: 26.4px;
+     height: 26.4px;
+     border-radius: 100%;
+     border: 1px solid #8e44ad;
+     transition: border-color 1s linear;
+     animation: iicon-pulse 4s linear infinite;
+}
+  @media screen and (max-width:767px){
+.tuultip{display:none !important; }
+    .iicon {
+    width: 13px;
+    height: 13px;}
+   .iicon:hover + .tuultip {
+    display: block !important;
+  }
+  }
+
+@keyframes iicon-pulse {
+    0%{
+        transform: translate(-50%, -50%) scale(1,1);
+        opacity: 0;
+    }
+    20%{
+        transform: translate(-50%, -50%) scale(1.5,1.5);
+        opacity: 0.9;
+    }
+    50%{
+        transform: translate(-50%, -50%) scale(2,2);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(2,2);
+        opacity: 0;
+    }
+}
+
+
+.item{
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.tuultip {
+    position: absolute;
+    padding: 1px;
+    width: 12em;
+    height: 5em;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 2px 4px rgb(0, 0, .2);
+    line-height: 1.5em;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+  .tuultip h2 {
+    font-size: 12px;
+    margin: 0 auto;
+    text-align: center;
+}
+</style>
+
+<div class="outer-containerrr sect-{{ section-id}}">
+         <div class="container page-width">
+            <h1>{{ section.settings.headingg }}</h1>
+            <div class="image-hotspot">
+ <img src="{{ section.settings.bgimg |img_url:'1024X1024' }} " >  
+              {% liquid 
+              assign horizon = block.settings.horizontal_position 
+              assign vertical =block.settings.vertical_position
+              %}
+  {%- for block in section.blocks -%}
+<div class="item itm-{{ forloop.index }}" style="top:{{block.settings.vertical_position}}%; left:{{block.settings.horizontal_position}}%;">
+   {% if block.settings.produkt !=blank %}
+  {% assign product = block.settings.produkt %}  
+    <a href="{{ product.url }}"><div class="iicon"> </div>
+    <div class="tuultip">
+     
+         <div class="prod-img"> <img src="{{ product.images[0].src | img_url: '75X75' }}" alt="{{ product.title }}" /></div>  
+       <div class="prod-content"><a href="{{ product.url }}"><h2>{{ product.title }}</h2></a>  <h4>{{ block.settings.blkheading }}</h4>
+        <p>{{ product.price | money }}</p></div>
+    </div></a>{% endif %}
+</div> 
+{% endfor %} 
+            </div>
+        </div>
+</div>
+{% schema %}
+{
+  "name": "Hotspot",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Headingg",
+      "id": "headingg"
+    },
+    {
+      "type": "image_picker",
+      "label": "Background Image",
+      "id": "bgimg"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        {
+          "type": "range",
+          "label": "horizontal Position",
+          "id": "horizontal_position",
+          "default": 5,
+          "min": 5,
+          "max": 95,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "label": "Vertical Position",
+          "id": "vertical_position",
+          "min": 5,
+          "default": 5,
+          "max": 95,
+          "step": 1
+        },
+        {
+          "type": "image_picker",
+          "label": "Add iicon/IMAGE",
+          "id": "add_iicon_image"
+        },
+        {
+          "type": "text",
+          "label": "Heading",
+          "id": "blkheading"
+        },
+        {
+          "type": "textarea",
+          "label": "Content",
+          "id": "content"
+        },
+        {
+          "type": "product",
+          "label": "Add Product",
+          "id": "produkt"
+        } 
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Hotspot"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

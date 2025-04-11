@@ -1,0 +1,84 @@
+<style>
+  .dumy{
+    font-weight:500;
+    color:#f9f9f9;
+  }
+</style>
+<div>
+{% liquid 
+ assign balok = section.blocks
+%}
+  
+  <h3> {{ section.settings.heading }}</h3>
+
+   {%- for block in balok -%}
+     <div>
+      <div class="tabs"> 
+           <button class="tablink" onclick="openTab(event, 'block-id-{{ block.settings.choose_collection }}')"> {{ block.settings.choose_collection }}</button>
+      </div>
+     {% endfor %}
+  {% render 'dummy' %}
+</div>
+
+{% schema %}
+{
+  "name": "Dummy Dummy",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cool-collection",
+      "name": "cool-collection",
+      "settings": [
+        {
+          "type": "collection",
+          "label": "Choose Collection",
+          "id": "choose_collection",
+          "info": "Choose collection to see the products"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Dummy Dummy"
+    }
+  ]
+}
+{% endschema %}
+ <script> 
+ function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+    function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>

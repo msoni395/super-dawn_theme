@@ -1,0 +1,153 @@
+<section id="custom-fade-in-section" class="fade-in-animation section_style_split_screen">
+  <div class="section_grid__bg">
+    <img class="section_bg_image" srcset="{{ settings.background_image | img_url: '375x' }} 375w, {{ settings.background_image | img_url: '750x' }} 750w, {{ settings.background_image | img_url: '1066x' }} 1066w, {{ settings.background_image | img_url: '1500x' }} 1500w, {{ settings.background_image | img_url: '1780x' }} 1780w, {{ settings.background_image | img_url: '2000x' }} 2000w, {{ settings.background_image | img_url: '2800x' }} 2800w" src="{{ settings.background_image | img_url: '750x' }}" sizes="100vw" loading="lazy" alt="{{ settings.image_alt_text }}">
+  </div>
+
+  <div class="section_content">
+    <div class="content_wrapper">
+      <header class="section-header">
+        <span class="subtitle">{{ settings.subtitle }}</span>
+        <h2 class="title">{{ settings.title }}</h2>
+      </header>
+
+      <div class="collection-list-grid">
+        <ul class="grid">
+          {% for block in section.blocks %}
+          <li class="grid_item">
+            <a href="{{ block.settings.link }}" class="grid_item_link">
+              <div class="grid_item_image_wrapper">
+                <img src="{{ block.settings.image | img_url: '300x' }}" srcset="{{ block.settings.image | img_url: '150x' }} 1x, {{ block.settings.image | img_url: '150x@2x' }} 2x" loading="lazy" alt="{{ block.settings.image_alt }}">
+                <span class="grid_item_image_overlay"></span>
+              </div>
+              <div class="grid_item_title">{{ block.settings.title }}</div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        
+        <div class="collection-list-btn-wrapper">
+          <a href="{{ settings.button_link }}" class="btn">
+            <span>{{ settings.button_text }}</span>
+            <svg class="icon icon-tail-right" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.707 11.293L15 3.586 13.586 5l6 6H2c-.553 0-1 .448-1 1s.447 1 1 1h17.586l-6 6L15 20.414l7.707-7.707c.391-.391.391-1.023 0-1.414z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .fade-in-animation {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .section_style_split_screen {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 50px;
+    }
+
+    .section_grid__bg .section_bg_image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .section_content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .content_wrapper {
+      max-width: 1200px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .section-header {
+      color: {{ settings.header_color }};
+    }
+
+    .section-header .subtitle {
+      color: {{ settings.subtitle_color }};
+    }
+
+    .collection-list-grid .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .grid_item {
+      flex: 1 1 calc(33.333% - 20px);
+      position: relative;
+    }
+
+    .grid_item_image_wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    .grid_item_image_overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ddd;
+    }
+
+    .icon-tail-right {
+      margin-left: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .section_style_split_screen {
+        flex-direction: column;
+      }
+
+      .grid_item {
+        flex: 1 1 calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid_item {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</section>

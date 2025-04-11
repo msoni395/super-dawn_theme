@@ -1,0 +1,139 @@
+<!-- slider-section.liquid -->
+<section class="slider-section">
+  <div class="slider-container">
+    <div class="slider">
+      {% for block in section.blocks %}
+        <div class="slide">
+          {% if block.settings.media_type == 'image' %}
+            <img src="{{ block.settings.image | img_url: 'large' }}" alt="{{ block.settings.image.alt }}">
+          {% elsif block.settings.media_type == 'video' %}
+            <video controls>
+              <source src="{{ block.settings.video_url }}" type="video/mp4">
+            </video>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom video slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media Type",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Upload Image",
+          "info": "Only required if you select 'Image' as Media Type"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Only required if you select 'Video' as Media Type"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom video slider",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+<style>
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .slide {
+    flex: 1;
+    min-width: 100%;
+  }
+
+  img, video {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Ensure the slider is fully responsive */
+  @media (max-width: 768px) {
+    .slider-container {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .slide {
+      min-width: 100%;
+    }
+
+    img, video {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slider-container {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .slide {
+      min-width: 100%;
+    }
+
+    img, video {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
+{% endstylesheet %}
+
+{% javascript %}
+<script>
+  // Basic slider logic (you can enhance it further with libraries like Slick or Swiper)
+  let slider = document.querySelector('.slider');
+  let slides = slider.children;
+  let currentIndex = 0;
+
+  function nextSlide() {
+    if (currentIndex < slides.length - 1) {
+      currentIndex++;
+    } else {
+      currentIndex = 0;
+    }
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  setInterval(nextSlide, 3000); // Auto-slide every 3 seconds
+</script>
+{% endjavascript %}

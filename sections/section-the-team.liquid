@@ -1,0 +1,261 @@
+<style>
+ 
+  .blockk-outer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .Outer-teamContainer{
+    margin-top:25px;
+    margin-bottom:25px;
+  }
+  .team-card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+     margin:0 auto;
+}
+
+.team-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   
+}
+
+.socialy-icons {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(245 245 245 / 0%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(80px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.socialy-icons a {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.socialy-icons a:hover {
+  transform: scale(1.2);
+}
+
+.team-card:hover .socialy-icons {
+  transform: translateY(0);
+}
+ .fa-facebook-f {
+  color: #3b5998;
+}
+.fa-twitter {
+  color: #1da1f2;
+}
+.fa-instagram {
+  color: #e4405f;
+}  .fa-google {
+  color: #e4405f;
+}     
+  .descr-member h2, .descr-member p{
+    margin: 0;
+  }
+  .descr-member{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgb(252 251 251 / 73%);
+    color: #000000;
+  } 
+  
+  @media screen and (max-width: 767px) {
+     .blockk-outer{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    row-gap: 38px;
+  }
+
+  .Outer-teamContainer{
+    margin-top:25px;
+    margin-bottom:25px;
+  }
+  .team-card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+     margin:0 auto;
+}
+
+.team-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   
+}
+
+.socialy-icons {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgb(245 245 245 / 0%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(80px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.socialy-icons a {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.socialy-icons a:hover {
+  transform: scale(1.2);
+}
+
+.team-card:hover .socialy-icons {
+  transform: translateY(0);
+}
+ .fa-facebook-f {
+  color: #3b5998;
+}
+.fa-twitter {
+  color: #1da1f2;
+}
+.fa-instagram {
+  color: #e4405f;
+}  .fa-google {
+  color: #e4405f;
+}     
+  .descr-member h2, .descr-member p{
+    margin: 0;
+  }
+  .descr-member{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgb(252 251 251 / 73%);
+    color: #000000;
+  }
+  }
+  
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="Outer-teamContainer">
+ <div class="inner-teamContainer page-width">
+   <h3> {{ section.settings.team_heading }}</h3>
+<div class="blockk-outer">
+  {%- for block in section.blocks -%}
+  <div class="team-card"> 
+ <img src="{{ block.settings.member_photo |img_url:'master' }} " > 
+ <div class="descr-member">
+     <h2>{{ block.settings.member_name }} </h2>
+    <p>{{ block.settings.member_position }} </p>
+ <div class="socialy-icons">
+    {% if block.settings.member-fb!=blank %} <a href="{{ block.settings.member-fb }}"><i class="fab fa-facebook-f"> </i></a>{% endif %}
+    {% if block.settings.member-ig!=blank %} <a href="{{ block.settings.member-ig }}"><i class="fab fa-instagram"> </i></a>   {% endif %}
+    {% if block.settings.member-tw!=blank %} <a href="{{ block.settings.member-tw }}"><i class="fab fa-twitter"> </i></a>  {% endif %}
+    {% if block.settings.member-gmail!=blank %} <a href="{{ block.settings.member-gmail }}"><i class="fab fa-google"> </i></a>{% endif %}
+  </div> 
+ </div>   
+  </div>
+  
+  {% endfor %}
+</div>
+ </div>
+  
+</div>
+
+
+{% schema %}
+{
+  "name": "The Team",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Team Heading",
+      "id": "team_heading",
+      "default": "The Team"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "team-member",
+      "name": "team-member",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Member Name",
+          "id": "member_name"
+        },
+        {
+          "type": "text",
+          "label": "Member Position",
+          "id": "member_position"
+        },
+        {
+          "type": "image_picker",
+          "label": "Member Photo",
+          "id": "member_photo"
+        },
+        {
+          "type": "url",
+          "label": "Facebook",
+          "id": "member-fb"
+        },
+        {
+          "type": "url",
+          "label": "Instagram",
+          "id": "member-ig"
+        },
+        {
+          "type": "url",
+          "label": "Twitter",
+          "id": "member-tw"
+        },
+        {
+          "type": "url",
+          "label": "Gmail",
+          "id": "member-gmail"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "The Team"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
