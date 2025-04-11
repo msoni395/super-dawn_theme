@@ -1,0 +1,13 @@
+<div class="coll_prods">
+       {% for product in section.settings.add_col.products %}
+<div class="cardd">
+  <img class="cardd-img-top" src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+  <div class="cardd-body">
+    <h5 class="cardd-title">{{ product.title }}</h5>
+     <p  class="cardd-price">{{ product.price | money }}</p> 
+<!--     <p class="cardd-text">{{ product.description }}</p> -->
+    <a href="{{ product.url }}" class="btn btn-primary">View Product</a>
+  </div>
+</div>{% endfor %}
+
+    </div> 
